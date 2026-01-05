@@ -35,6 +35,12 @@ def judge_evidence(evidence: Evidence, query: str) -> JudgmentResult:
 
     This is a simplified rule-based judge for demonstration.
     In production, this would use more sophisticated logic.
+
+    NOTE:
+    This STOP is not triggered by a single score threshold.
+    Each evidence is judged independently on multiple dimensions
+    (confidence, relevance, specificity, topic match).
+    STOP is a final judgment outcome, not a threshold failure.
     """
     # Rule 1: Low confidence → REJECT
     if evidence.confidence < 0.5:

@@ -84,6 +84,15 @@ STOP-First RAG: `Query → Retrieve → **Judge Evidence** → (Conditional) Gen
 
 The system treats "I cannot answer this" as a **first-class outcome**, not a failure.
 
+> **STOP is not a threshold failure.
+> It is a judgment outcome.**
+
+This system does not stop because a relevance score is low.
+It stops because **answering is unjustified** given the available evidence.
+
+Relevance, confidence, scope mismatch, and ambiguity are evaluated as
+**separate judgment signals**, not collapsed into a single score.
+
 ### STOP is a Valid Outcome
 
 When evidence is weak, conflicting, or absent, the system returns:
@@ -210,6 +219,25 @@ This is not a new safety feature bolted onto RAG. The **STOP/branch judgment cor
 - If evidence is weak/conflicting, STOP fires **before the model generates**
 
 See `docs/STOP_RAG_RELATIONSHIP.md` for the full architectural explanation.
+
+### Is this based on LangChain / LangGraph?
+
+No.
+
+This repository intentionally demonstrates that **judgment comes before orchestration**.
+
+The STOP / Judgment logic is framework-agnostic and can be embedded into LangChain, LangGraph, or any other pipeline — but it does not depend on them.
+
+The minimal demo runs with Python standard library only to make this explicit.
+
+### What is RAG's Role Here?
+
+RAG does not decide whether an answer should exist.
+It only supplies candidate evidence.
+
+**Judgment decides whether answering is allowed.**
+
+The judgment layer exists independently of RAG. RAG feeds it evidence; the judgment layer decides if that evidence justifies speaking.
 
 ### Key Statement
 

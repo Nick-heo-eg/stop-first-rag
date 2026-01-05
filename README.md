@@ -321,6 +321,24 @@ Run with **Ollama on CPU** and see the full judgment flow.
 
 ---
 
+## Non-Goals
+
+This repository intentionally does NOT provide:
+
+- **Audit infrastructure or trace storage** (see AJT spec for trace definitions)
+- **Production-ready RAG pipeline** (this is a minimal judgment demonstration)
+- **Iterative retrieval loops** (stop-first means single-pass by design)
+- **Learning-based stopping policies** (see Stop-RAG for value-based approaches)
+- **Performance benchmarks or retrieval optimization** (focus is judgment integrity, not speed)
+
+This repository demonstrates **judgment-first decision logic**.
+
+Anything requiring audit trails, production hardening, or multi-step retrieval belongs in other systems or specifications.
+
+**Core principle**: This repository decides when to stop. Other systems define how to trace, audit, or expand those decisions.
+
+---
+
 ## License
 
 MIT

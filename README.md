@@ -1,5 +1,7 @@
 # STOP-First RAG: Judgment-Centered Retrieval
 
+**Try it now:** `python3 demo_minimal.py` (no dependencies, runs in < 1 second)
+
 > Traditional RAG answers everything. Even when it shouldn't.
 
 **The Problem**: Most RAG systems optimize for answer rate. They retrieve, generate, and return—whether the evidence is solid or sketchy. The cost of a wrong answer? Not their problem.
@@ -59,20 +61,19 @@ This system optimizes for operational safety, not answer coverage.
 
 ---
 
-## Quick Start (1 Command)
+## Quick Start
 
 ```bash
-# Run the minimal demo (no dependencies)
-python demo_minimal.py
+python3 demo_minimal.py
 ```
 
-You'll see:
-- Evidence judge decisions (ACCEPT/REJECT/DEFER) in real-time
-- Final judgment (ANSWER or STOP) with reason code
-- Complete trace output (JSON format)
-- **Live STOP behavior** - system refuses to hallucinate
+**What you'll see** (runs in < 1 second):
+- ⚖️ Evidence judge decisions (ACCEPT/REJECT/DEFER)
+- 🛑 Final judgment (ANSWER or STOP) with reason code
+- 📋 Complete trace (JSON format)
+- ✅ **Live STOP behavior** - system refuses to hallucinate
 
-**No dependencies.** Just Python 3.7+. No GPU, no Ollama, no external libs.
+**Requirements**: Python 3.7+ only. No dependencies, no GPU, no external libraries.
 
 ---
 

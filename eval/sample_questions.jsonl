@@ -1,0 +1,3 @@
+{"query": "What is the refund period?", "ground_truth": "14 days with receipt"}
+{"query": "When do refunds get denied?", "ground_truth": "After 30 days or damaged"}
+{"query": "How to start a return?", "ground_truth": "Email support"}

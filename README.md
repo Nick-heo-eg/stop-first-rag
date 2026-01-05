@@ -351,6 +351,10 @@ For questions about the judgment architecture or STOP-first design philosophy, o
 
 ---
 
+**Note**: Earlier design notes and initial reasoning are preserved in `docs/origin.md` for context.
+
+---
+
 **Final Statement:**
 
 > **Traditional RAG answers questions. This RAG proves why it didn't.**

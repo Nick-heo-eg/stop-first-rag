@@ -1,50 +1,110 @@
 # STOP-First RAG: Judgment-Centered Retrieval
 
-Most RAG systems optimize for answer quality. This system optimizes for **judgment integrity**.
+> Traditional RAG answers everything. Even when it shouldn't.
+
+**The Problem**: Most RAG systems optimize for answer rate. They retrieve, generate, and return—whether the evidence is solid or sketchy. The cost of a wrong answer? Not their problem.
+
+**This System**: Optimizes for **judgment integrity**. If evidence is weak, conflicting, or absent, it returns `STOP` with a structured reason. No hallucination. No hand-waving. Just honest refusal.
+
+---
+
+## The Difference in 30 Seconds
+
+**Traditional RAG**:
+```
+Query: "What's our return policy for opened software?"
+[Weak evidence retrieved]
+Answer: "Based on the documents, software can be returned within 14 days." ❌
+```
+
+**STOP-First RAG**:
+```
+Query: "What's our return policy for opened software?"
+[Weak evidence retrieved]
+STOP: NO_ACCEPTABLE_EVIDENCE
+Reason: E1 covers physical products only, E2 mentions software but no concrete policy
+Trace: examples/stop_trace.jsonl ✅
+```
+
+One system guessed. The other **proved why it didn't**.
+
+**See the actual trace**: [`examples/stop_trace.jsonl`](examples/stop_trace.jsonl)
+- Shows every evidence judgment (ACCEPT/REJECT/DEFER)
+- Final decision with structured reason code
+- Complete audit trail from query to STOP
+
+---
+
+## One-Line Thesis
+
+> **Traditional RAG optimizes answer rate. This system optimizes the cost of being wrong.**
+
+---
+
+## Where This Matters
+
+If you're building for:
+- **Compliance & audit tools** (every decision must be traceable)
+- **Legal/enterprise decision support** (wrong answers are expensive)
+- **Safety-critical internal systems** (silence is better than incorrect guidance)
+
+...then "I don't know" is often the **correct answer**, not a failure.
+
+---
+
+## Quick Start (3 Commands)
+
+```bash
+# 1. Install Ollama (CPU-only demo)
+ollama pull qwen2.5
+
+# 2. Run the demo
+python demo.py
+
+# 3. Check the trace
+cat traces/run_*.jsonl | jq .
+```
+
+You'll see:
+- Evidence judge decisions (ACCEPT/REJECT/DEFER)
+- Final judgment (ANSWER or STOP)
+- Structured reason codes (not free-form excuses)
+
+**No GPU needed.** Responsibility doesn't require high-performance hardware.
+
+---
+
+<details>
+<summary><strong>📖 Core Concepts (click to expand)</strong></summary>
 
 ## What is STOP-First / Judgment-First RAG?
 
-Traditional RAG follows: `Query → Retrieve → Generate → Answer`
+Traditional RAG: `Query → Retrieve → Generate → Answer`
 
-STOP-First RAG follows: `Query → Retrieve → **Judge Evidence** → (Conditional) Generate → **Final Judge** → ANSWER or STOP`
-
-The critical difference: **judgment happens before and after generation, not just at the end.**
+STOP-First RAG: `Query → Retrieve → **Judge Evidence** → (Conditional) Generate → **Final Judge** → ANSWER or STOP`
 
 ### Core Principle
 
 > **Retrieval is optional. Judgment is not.**
 
-This system treats "I cannot answer this" as a **first-class outcome**, not a failure. When evidence is weak, conflicting, or absent, the system returns:
+The system treats "I cannot answer this" as a **first-class outcome**, not a failure.
 
-```
-STOP
-Reason: CONFLICTING_EVIDENCE
+### STOP is a Valid Outcome
+
+When evidence is weak, conflicting, or absent, the system returns:
+
+```json
+{
+  "decision": "STOP",
+  "reason_code": "CONFLICTING_EVIDENCE",
+  "explanation": "Found 3 sources: 2 say 14 days, 1 says 30 days",
+  "trace_id": "run_abc123"
+}
 ```
 
 This is a **compliant result**, fully logged and traceable.
 
-## How It Differs from Traditional RAG
-
-| Traditional RAG | STOP-First RAG |
-|----------------|----------------|
-| Retrieve → Generate | Retrieve → **Evidence Judge** → Generate |
-| Answer or hallucinate | Answer or **STOP with reason** |
-| Failures attributed to "hallucination" | Structured reason codes (NO_ACCEPTABLE_EVIDENCE, CONFLICTING_EVIDENCE, LOW_CONFIDENCE) |
-| Model owns the decision | **Judge owns the decision** (model only proposes) |
-| Optimize answer rate | **Optimize cost of being wrong** |
-
-## STOP is a Valid Outcome
-
-In compliance, legal, and safety-critical domains, saying "I don't know" is often the correct answer. This system:
-
-- **Does not penalize STOP** as failure
-- **Logs every STOP** with a structured reason code
-- **Tracks wrong-but-answered** as the primary risk metric
-
-Traditional RAG: "How many questions did we answer?" (answer_rate)
-STOP-First RAG: **"How many wrong answers did we emit?"** (wrong_but_answered)
-
-## Trace & Reason Code Philosophy
+### Trace & Reason Code Philosophy
 
 Every query—whether answered or stopped—produces an **append-only trace**:
 
@@ -53,22 +113,45 @@ RUN_START → RETRIEVE → EVIDENCE_JUDGE → ANSWER_CANDIDATES → FINAL_DECISI
 ```
 
 Reason codes are **not free-form excuses**. They are:
-
 - Enumerated (e.g., `LOW_CONFIDENCE`, `CONFLICTING_EVIDENCE`, `NO_ACCEPTABLE_EVIDENCE`)
 - Structured for audit and metrics
 - Used to prove **why the system stopped**
 
 This is **negative proof**: we can demonstrate what judgment was required and why it wasn't met.
 
-## CPU-Only Demo Possible
+</details>
 
-This system runs **without GPUs** because responsibility doesn't need high-performance hardware. CPU-only execution:
+---
 
-- Forces explicit judgment rules
-- Reveals STOP behavior clearly
-- Proves the judgment layer is independent of model complexity
+## How It Differs from Traditional RAG
 
-You can run the demo with **Ollama on CPU** and still see the full judgment flow.
+**Architecture Diagram**:
+
+```
+Traditional RAG:
+  Query → Retrieve → Generate → Answer
+                                  ↓
+                            (hallucinate when weak)
+
+STOP-First RAG:
+  Query → Retrieve → Evidence Judge ──→ Generate → Final Judge → ANSWER
+                          ↓                             ↓
+                        REJECT                        STOP
+                          ↓                             ↓
+                    (with reason code)          (with trace)
+```
+
+**Key Differences**:
+
+| Traditional RAG | STOP-First RAG |
+|----------------|----------------|
+| Retrieve → Generate | Retrieve → **Evidence Judge** → Generate |
+| Answer or hallucinate | Answer or **STOP with reason** |
+| Failures attributed to "hallucination" | Structured reason codes |
+| Model owns the decision | **Judge owns the decision** (model only proposes) |
+| Optimize answer rate | **Optimize cost of being wrong** |
+
+---
 
 ## Evaluation: Precision vs STOP Trade-off
 
@@ -77,71 +160,23 @@ The `eval/` directory compares traditional RAG vs STOP-first RAG on:
 - **answer_rate**: How many questions get answered
 - **precision**: Of the answers given, how many are correct
 - **hallucination_rate**: Unsupported claims per answer
-- **wrong_but_answered**: The danger zone (answered incorrectly)
+- **wrong_but_answered**: The danger zone (answered incorrectly) ⚠️
 - **stop_rate**: How often the system stops (with reason distribution)
 
 **Key insight**: Traditional RAG has higher answer_rate but also higher wrong_but_answered. STOP-first RAG trades answer coverage for **safety**.
 
+**Run the comparison**:
+```bash
+cd eval
+python compare.py \
+  --traditional traditional_outputs.jsonl \
+  --judgment judgment_outputs.jsonl \
+  --out report.csv
+```
+
 See `eval/README.md` for full methodology.
 
-## One-Line Summary
-
-> **Traditional RAG answers questions. This RAG proves why it didn't.**
-
-Or equivalently:
-
-> **Traditional RAG optimizes answer rate. This system optimizes the cost of being wrong.**
-
-## Where It Matters
-
-- **Compliance & audit tools**: Every decision must be traceable
-- **Legal/enterprise decision support**: Wrong answers are expensive
-- **Safety-critical internal systems**: Silence is better than incorrect guidance
-
-We aren't chasing flashy answers. We're ensuring the system knows when to remain silent—and can prove why.
-
-## Relationship to STOP/Branch Judgment
-
-This is not a new safety feature bolted onto RAG. The **STOP/branch judgment core already existed**—it was used to halt execution when conditions weren't met, branch when uncertainty required manual decisions, and log the reason.
-
-**RAG simply became the evidence supply channel** for that same judgment core:
-
-```
-[Judgment Core (STOP/AJT)] ← evidence from RAG
-```
-
-- STOP policies get reused (pre/post RAG logic stays identical)
-- RAG retrieves evidence; the judgment layer decides if it's sufficient
-- If evidence is weak/conflicting, STOP fires **before the model generates**
-
-See `docs/STOP_RAG_RELATIONSHIP.md` for the full architectural explanation.
-
-## Getting Started
-
-1. **Install dependencies** (Ollama recommended for CPU demo):
-   ```bash
-   # Install Ollama (see https://ollama.ai)
-   ollama pull qwen2.5
-   ```
-
-2. **Run the demo**:
-   ```bash
-   python demo.py
-   ```
-
-3. **Check the trace**:
-   - Every run creates a `.jsonl` trace file
-   - Look for `STOP` entries with `reason_code`
-   - Compare `EVIDENCE_JUDGE` vs `FINAL_DECISION` outcomes
-
-4. **Run evaluation** (optional):
-   ```bash
-   cd eval
-   python compare.py \
-     --traditional traditional_outputs.jsonl \
-     --judgment judgment_outputs.jsonl \
-     --out report.csv
-   ```
+---
 
 ## Project Structure
 
@@ -160,6 +195,37 @@ See `docs/STOP_RAG_RELATIONSHIP.md` for the full architectural explanation.
     └── STOP_RAG_RELATIONSHIP.md   # Architectural explanation
 ```
 
+---
+
+<details>
+<summary><strong>🏗️ Architecture: Relationship to STOP/Branch Judgment (click to expand)</strong></summary>
+
+## Relationship to STOP/Branch Judgment
+
+This is not a new safety feature bolted onto RAG. The **STOP/branch judgment core already existed**—it was used to halt execution when conditions weren't met, branch when uncertainty required manual decisions, and log the reason.
+
+**RAG simply became the evidence supply channel** for that same judgment core:
+
+```
+[Judgment Core (STOP/AJT)] ← evidence from RAG
+```
+
+- STOP policies get reused (pre/post RAG logic stays identical)
+- RAG retrieves evidence; the judgment layer decides if it's sufficient
+- If evidence is weak/conflicting, STOP fires **before the model generates**
+
+See `docs/STOP_RAG_RELATIONSHIP.md` for the full architectural explanation.
+
+### Key Statement
+
+> **RAG is not a new safety add-on. It supplies evidence to the judgment system we already built.**
+
+The model proposes. The judgment layer decides. RAG never owns the decision to speak.
+
+</details>
+
+---
+
 ## Core Philosophy
 
 This system embodies three principles:
@@ -170,18 +236,31 @@ This system embodies three principles:
 
 These aren't aspirational values—they're **enforced by code**.
 
+---
+
+## CPU-Only Demo
+
+Because responsibility doesn't need GPUs. CPU-only execution:
+- Forces explicit judgment rules
+- Reveals STOP behavior clearly
+- Proves the judgment layer is independent of model complexity
+
+Run with **Ollama on CPU** and see the full judgment flow.
+
+---
+
 ## License
 
 MIT
 
+---
+
 ## Contact
 
-For questions about the judgment architecture or STOP-first design philosophy, open an issue.
+For questions about the judgment architecture or STOP-first design philosophy, open an issue on GitHub.
 
 ---
 
 **Final Statement:**
 
-> **RAG is not a new safety add-on. It supplies evidence to the judgment system we already built.**
-
-The model proposes. The judgment layer decides. RAG never owns the decision to speak.
+> **Traditional RAG answers questions. This RAG proves why it didn't.**

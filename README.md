@@ -52,25 +52,20 @@ If you're building for:
 
 ---
 
-## Quick Start (3 Commands)
+## Quick Start (1 Command)
 
 ```bash
-# 1. Install Ollama (CPU-only demo)
-ollama pull qwen2.5
-
-# 2. Run the demo
-python demo.py
-
-# 3. Check the trace
-cat traces/run_*.jsonl | jq .
+# Run the minimal demo (no dependencies)
+python demo_minimal.py
 ```
 
 You'll see:
-- Evidence judge decisions (ACCEPT/REJECT/DEFER)
-- Final judgment (ANSWER or STOP)
-- Structured reason codes (not free-form excuses)
+- Evidence judge decisions (ACCEPT/REJECT/DEFER) in real-time
+- Final judgment (ANSWER or STOP) with reason code
+- Complete trace output (JSON format)
+- **Live STOP behavior** - system refuses to hallucinate
 
-**No GPU needed.** Responsibility doesn't require high-performance hardware.
+**No dependencies.** Just Python 3.7+. No GPU, no Ollama, no external libs.
 
 ---
 

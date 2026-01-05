@@ -270,6 +270,30 @@ These aren't aspirational values—they're **enforced by code**.
 
 ---
 
+## Related Work
+
+Recent work such as [**Stop-RAG: Value-Based Retrieval Control for Iterative RAG**](https://arxiv.org/abs/2501.09726) formalizes the stopping decision in iterative RAG as a learned value function.
+
+stop-first-rag addresses the same question—**when to stop retrieval**—from a different axis:
+
+Instead of learning a stopping policy, it **structurally declares STOP as the default**, requiring explicit evidence to justify answering.
+
+### Key Differences
+
+| Dimension | Stop-RAG | stop-first-rag |
+|-----------|----------|----------------|
+| **Stopping mechanism** | Learned value function | Structural default + evidence threshold |
+| **Training required** | Yes (value-based RL) | No (rule-based judgment) |
+| **Judgment visibility** | Inferred from model weights | Explicit in logs (ACCEPT/REJECT/DEFER) |
+| **Deployment** | Requires training data + GPU | Runs on CPU with zero training |
+| **Philosophy** | Optimize stopping via learning | Declare stopping as default |
+
+This allows stop-first-rag to operate **without training**, remain transparent through explicit STOP logs, and fit naturally into local or constrained environments.
+
+Both approaches recognize the same judgment gap in Iterative RAG. Stop-RAG solves it through **learning**; stop-first-rag solves it through **structure**.
+
+---
+
 ## CPU-Only Demo
 
 Because responsibility doesn't need GPUs. CPU-only execution:

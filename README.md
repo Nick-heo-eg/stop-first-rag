@@ -4,6 +4,8 @@
 
 **The Problem**: Most RAG systems optimize for answer rate. They retrieve, generate, and return—whether the evidence is solid or sketchy. The cost of a wrong answer? Not their problem.
 
+Iterative RAG opened the possibility of "retrieving more," but it left a critical gap: **who decides when to stop?** Without a responsible criterion for halting, systems default to answering—even when they shouldn't.
+
 **This System**: Optimizes for **judgment integrity**. If evidence is weak, conflicting, or absent, it returns `STOP` with a structured reason. No hallucination. No hand-waving. Just honest refusal.
 
 ---
@@ -37,11 +39,14 @@ One system guessed. The other **proved why it didn't**.
 
 ## One-Line Thesis
 
-> **Traditional RAG optimizes answer rate. This system optimizes the cost of being wrong.**
+> **stop-first-rag is not a new algorithm.
+> It's a judgment strategy that declares stopping as the default in the Iterative RAG era.**
 
 ---
 
 ## Where This Matters
+
+In production environments, the most dangerous failure mode is not a slow answer—it's **confidently wrong answers at scale**.
 
 If you're building for:
 - **Compliance & audit tools** (every decision must be traceable)
@@ -49,6 +54,8 @@ If you're building for:
 - **Safety-critical internal systems** (silence is better than incorrect guidance)
 
 ...then "I don't know" is often the **correct answer**, not a failure.
+
+This system optimizes for operational safety, not answer coverage.
 
 ---
 
@@ -92,6 +99,8 @@ It stops because **answering is unjustified** given the available evidence.
 
 Relevance, confidence, scope mismatch, and ambiguity are evaluated as
 **separate judgment signals**, not collapsed into a single score.
+
+**Positioning**: stop-first-rag optimizes judgment over retrieval. It's closer to "judgment-first RAG"—asking **when to stop** before optimizing **what to retrieve**. Even when more retrieval is possible, the system may choose not to proceed.
 
 ### STOP is a Valid Outcome
 

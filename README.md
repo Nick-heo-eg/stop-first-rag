@@ -294,6 +294,22 @@ Both approaches recognize the same judgment gap in Iterative RAG. Stop-RAG solve
 
 ---
 
+## Relationship to AJT
+
+stop-first-rag is not an audit system.
+
+It is an **upstream decision system** that explicitly produces STOP decisions after the first retrieval step.
+
+These STOP decisions are designed to be recorded and audited using **AJT (Auditability & Justification Traces)**, as defined in the [AJT specification repository](https://github.com/Nick-heo-eg/ajt-spec).
+
+In other words:
+- stop-first-rag decides **when to stop**
+- AJT defines **how that decision is traced and justified**
+
+This repository demonstrates judgment-first RAG. For the authoritative definition of how those judgments should be logged and audited, see the AJT spec.
+
+---
+
 ## CPU-Only Demo
 
 Because responsibility doesn't need GPUs. CPU-only execution:

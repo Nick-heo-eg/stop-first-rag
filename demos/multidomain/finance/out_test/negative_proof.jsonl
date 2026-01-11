@@ -1,0 +1,18 @@
+{"candidate_id": "FN002-rfjck9", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "debt_summary", "present_tags": ["bank_statement", "consent_form_signed", "credit_report", "income_verification", "policy_disclosure_ack"]}}
+{"candidate_id": "FN003-huswmq", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "debt_summary", "present_tags": ["consent_form_signed", "credit_report", "employment_verification", "income_verification", "policy_disclosure_ack"]}}
+{"candidate_id": "FN006-wybg08", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "consent_form_signed"}}
+{"candidate_id": "FN007-jnmt3b", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "debt_summary", "present_tags": ["consent_form_signed", "credit_report", "employment_verification", "income_verification", "policy_disclosure_ack"]}}
+{"candidate_id": "FN015-xy1l0i", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "debt_summary", "present_tags": ["consent_form_signed", "credit_report", "employment_verification", "income_verification", "policy_disclosure_ack"]}}
+{"candidate_id": "FN019-742d0n", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "consent_form_signed"}}
+{"candidate_id": "FN023-8rdbjg", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "consent_form_signed"}}
+{"candidate_id": "FN024-y8wd2n", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "consent_form_signed"}}
+{"candidate_id": "FN027-zyv7s5", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "debt_summary", "present_tags": ["bank_statement", "consent_form_signed", "credit_report", "employment_verification", "income_verification", "policy_disclosure_ack"]}}
+{"candidate_id": "FN029-7khhx4", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "consent_form_signed"}}
+{"candidate_id": "FN031-d94djf", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "debt_summary", "present_tags": ["consent_form_signed", "credit_report", "income_verification", "policy_disclosure_ack"]}}
+{"candidate_id": "FN032-vfith9", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "debt_summary", "present_tags": ["consent_form_signed", "credit_report", "employment_verification", "income_verification", "policy_disclosure_ack"]}}
+{"candidate_id": "FN033-b8ehso", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "debt_summary", "present_tags": ["bank_statement", "consent_form_signed", "credit_report", "employment_verification", "income_verification", "policy_disclosure_ack"]}}
+{"candidate_id": "FN034-hrcd6a", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "consent_form_signed"}}
+{"candidate_id": "FN035-8vmgei", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "debt_summary", "present_tags": ["bank_statement", "consent_form_signed", "credit_report", "income_verification", "policy_disclosure_ack"]}}
+{"candidate_id": "FN036-lksyxf", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "consent_form_signed"}}
+{"candidate_id": "FN038-tpw90k", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "debt_summary", "present_tags": ["consent_form_signed", "credit_report", "employment_verification", "income_verification", "policy_disclosure_ack"]}}
+{"candidate_id": "FN040-08o91f", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "consent_form_signed"}}

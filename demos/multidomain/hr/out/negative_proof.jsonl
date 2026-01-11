@@ -1,0 +1,22 @@
+{"candidate_id": "HR004-x26yu5", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "project_summary", "present_tags": ["experiment_log"]}}
+{"candidate_id": "HR006-kaw56y", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "project_summary", "present_tags": ["experiment_log"]}}
+{"candidate_id": "HR010-t8ubla", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "portfolio_url"}}
+{"candidate_id": "HR014-qp45yt", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "project_summary", "present_tags": ["experiment_log"]}}
+{"candidate_id": "HR016-rykz3z", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "project_summary", "present_tags": ["dashboard_link", "sql_snippet"]}}
+{"candidate_id": "HR019-2hkebn", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "portfolio_url"}}
+{"candidate_id": "HR022-wlqbyk", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "project_summary", "present_tags": ["code_sample", "test_coverage"]}}
+{"candidate_id": "HR023-lw8xib", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "project_summary", "present_tags": ["dashboard_link", "sql_snippet"]}}
+{"candidate_id": "HR025-ezkne2", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "portfolio_url"}}
+{"candidate_id": "HR027-sn6ni5", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "project_summary", "present_tags": ["code_sample", "test_coverage"]}}
+{"candidate_id": "HR028-h6bo25", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "project_summary", "present_tags": ["code_sample", "test_coverage"]}}
+{"candidate_id": "HR029-f50ci4", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "portfolio_url"}}
+{"candidate_id": "HR031-miadwi", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "portfolio_url"}}
+{"candidate_id": "HR036-t6gtl0", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "portfolio_url"}}
+{"candidate_id": "HR037-eq9820", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "portfolio_url"}}
+{"candidate_id": "HR041-k9habt", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "project_summary", "present_tags": ["experiment_log"]}}
+{"candidate_id": "HR044-7kglq4", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "project_summary", "present_tags": ["dashboard_link", "sql_snippet"]}}
+{"candidate_id": "HR047-7fcd4l", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "project_summary", "present_tags": ["experiment_log"]}}
+{"candidate_id": "HR050-1odit4", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "portfolio_url"}}
+{"candidate_id": "HR052-es8wy8", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "portfolio_url"}}
+{"candidate_id": "HR057-cto4q1", "decision": "STOP", "reason": "missing_must_links", "detail": {"missing": "portfolio_url"}}
+{"candidate_id": "HR060-vv3w2l", "decision": "STOP", "reason": "missing_must_evidence", "detail": {"missing_tag": "project_summary", "present_tags": ["code_sample", "test_coverage"]}}

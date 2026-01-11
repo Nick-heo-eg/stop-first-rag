@@ -1,0 +1,18 @@
+version: '1.0'
+domain: Medical
+format: JD-style policy
+global:
+  must_links:
+  - consent_signed
+roles:
+  Clinical Triage:
+    must:
+    - symptom_report
+    - vitals
+    - risk_disclosure_ack
+    should:
+    - lab_results
+    - imaging_summary
+    must_not:
+    - no_consent
+    - diagnosis_without_evidence

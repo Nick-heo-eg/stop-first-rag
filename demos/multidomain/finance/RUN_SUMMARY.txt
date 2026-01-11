@@ -1,0 +1,12 @@
+TOTAL: 40
+ALLOW: 17
+REVIEW: 5
+STOP: 18
+Top reasons:
+- missing_must_evidence: 10
+- missing_must_links: 8
+- missing_should_evidence: 5
+Artifacts:
+ - /mnt/data/ajt_multidomain_jd_demo/finance/out/negative_proof.jsonl
+ - /mnt/data/ajt_multidomain_jd_demo/finance/out/review_queue.json
+ - /mnt/data/ajt_multidomain_jd_demo/finance/out/allow_list.json

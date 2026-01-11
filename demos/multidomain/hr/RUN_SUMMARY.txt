@@ -1,0 +1,11 @@
+TOTAL: 60
+ALLOW: 38
+REVIEW: 0
+STOP: 22
+Top reasons:
+- missing_must_evidence: 12
+- missing_must_links: 10
+Artifacts:
+ - /mnt/data/ajt_multidomain_jd_demo/hr/out/negative_proof.jsonl
+ - /mnt/data/ajt_multidomain_jd_demo/hr/out/review_queue.json
+ - /mnt/data/ajt_multidomain_jd_demo/hr/out/allow_list.json

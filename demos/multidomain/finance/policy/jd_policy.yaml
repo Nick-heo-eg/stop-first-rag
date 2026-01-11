@@ -1,0 +1,18 @@
+version: '1.0'
+domain: Finance
+format: JD-style policy
+global:
+  must_links:
+  - consent_form_signed
+roles:
+  Loan Underwriting Analyst:
+    must:
+    - credit_report
+    - income_verification
+    - debt_summary
+    - policy_disclosure_ack
+    should:
+    - bank_statement
+    - employment_verification
+    must_not:
+    - no_consent

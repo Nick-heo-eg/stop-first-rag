@@ -1,0 +1,32 @@
+version: '1.2'
+domain: HR
+format: JD-style policy
+global:
+  must_links:
+  - portfolio_url
+  - github_url
+roles:
+  Backend Engineer:
+    must:
+    - project_summary
+    - repo_link
+    should:
+    - code_sample
+    - test_coverage
+    must_not: []
+  ML Engineer:
+    must:
+    - project_summary
+    - model_training
+    should:
+    - paper_link
+    - experiment_log
+    must_not: []
+  Data Analyst:
+    must:
+    - project_summary
+    - analysis_report
+    should:
+    - sql_snippet
+    - dashboard_link
+    must_not: []

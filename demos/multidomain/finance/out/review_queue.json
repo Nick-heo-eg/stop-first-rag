@@ -1,0 +1,62 @@
+[
+  {
+    "candidate_id": "FN004-afdgnv",
+    "name": "Hyun Choi",
+    "role": "Loan Underwriting Analyst",
+    "reason": "missing_should_evidence",
+    "detail": {
+      "missing_should": [
+        "bank_statement",
+        "employment_verification"
+      ]
+    }
+  },
+  {
+    "candidate_id": "FN005-4x33w2",
+    "name": "Hyun Lee",
+    "role": "Loan Underwriting Analyst",
+    "reason": "missing_should_evidence",
+    "detail": {
+      "missing_should": [
+        "bank_statement",
+        "employment_verification"
+      ]
+    }
+  },
+  {
+    "candidate_id": "FN010-9m85hx",
+    "name": "Min Lee",
+    "role": "Loan Underwriting Analyst",
+    "reason": "missing_should_evidence",
+    "detail": {
+      "missing_should": [
+        "bank_statement",
+        "employment_verification"
+      ]
+    }
+  },
+  {
+    "candidate_id": "FN013-q29gxn",
+    "name": "Min Park",
+    "role": "Loan Underwriting Analyst",
+    "reason": "missing_should_evidence",
+    "detail": {
+      "missing_should": [
+        "bank_statement",
+        "employment_verification"
+      ]
+    }
+  },
+  {
+    "candidate_id": "FN030-r2go6v",
+    "name": "Jin Choi",
+    "role": "Loan Underwriting Analyst",
+    "reason": "missing_should_evidence",
+    "detail": {
+      "missing_should": [
+        "bank_statement",
+        "employment_verification"
+      ]
+    }
+  }
+]

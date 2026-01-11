@@ -2,6 +2,22 @@
 
 **Detecting when AI decisions should *not* be made**
 
+---
+
+## Project Status
+
+This repository represents an ongoing research exploration.
+
+It is **not a product**, **not a finalized solution**, and **not a commercial offering**.
+The goal is to explore where AI governance concepts break when confronted with real workflows.
+
+Several hypotheses in this repository are intentionally unvalidated.
+They exist to provoke discussion and enable learning — not to claim readiness.
+
+---
+
+## Overview
+
 This repository demonstrates a judgment gate that verifies **whether an AI decision is permissible** before any answer is produced.
 
 It does **not** automate decisions.
@@ -96,6 +112,24 @@ You will see ALLOW / REVIEW / STOP counts printed deterministically.
 
 > AI should not be optimized to answer more questions.
 > It should be optimized to **refuse answers when judgment is not permitted**.
+
+---
+
+## Scope Clarification
+
+### What this repository explores:
+- AI risk boundaries in high-stakes domains
+- Structural assumptions about evidence sufficiency
+- Failure modes when AI proceeds without adequate evidence
+- Deterministic judgment gates as research artifacts
+
+### What this repository does NOT attempt:
+- Replace HR, Finance, or Medical workflows
+- Define market-ready governance products
+- Claim enterprise adoption readiness
+- Provide legal or regulatory compliance solutions
+
+This is a **research exploration**, not a deployment-ready system.
 
 ---
 

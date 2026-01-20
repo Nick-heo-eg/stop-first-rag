@@ -1,18 +1,55 @@
 """
-stop-first-rag: Evidence Gate Implementation
+stop-first-rag: Early Exit Guard Implementation
 
-Stop-first filter that runs before LLM generation.
+Reference implementation of evidence presence check before LLM generation.
 
-Core function:
-- check_evidence(query, chunks) → decision dict with "status" and "reason"
-- If chunks empty or insufficient → STOP (skip LLM call)
-- If chunks sufficient → ALLOW (proceed to LLM)
+Core functions:
+- should_generate(chunks) → bool (minimal framework-agnostic interface)
+- check_evidence(query, chunks) → dict (structured interface with reason codes)
+
+Single responsibility: Decide if retrieved_chunks is empty before calling LLM.
+This is intentionally trivial (if not chunks). Value is in naming, boundary
+enforcement, and observability.
 """
 
 from enum import Enum
 from dataclasses import dataclass
 from typing import Optional, List, Dict, Any
 
+
+# ============================================================================
+# MINIMAL FRAMEWORK-AGNOSTIC INTERFACE
+# ============================================================================
+
+def should_generate(chunks: List[Dict[str, Any]]) -> bool:
+    """
+    Framework-agnostic early exit guard.
+
+    Single responsibility: Decide if LLM generation should proceed based on
+    evidence presence.
+
+    This is intentionally trivial (if not chunks). The value is not in the
+    condition itself, but in naming it, enforcing it as an execution boundary,
+    and logging the decision.
+
+    Args:
+        chunks: Retrieved evidence chunks
+
+    Returns:
+        True if generation should proceed, False if it should be skipped
+
+    Example:
+        chunks = retriever.retrieve(query)
+        if not should_generate(chunks):
+            return None  # Early exit, LLM not called
+        return llm.generate(query, chunks)
+    """
+    return bool(chunks and len(chunks) > 0)
+
+
+# ============================================================================
+# STRUCTURED DECISION INTERFACE (with reason codes)
+# ============================================================================
 
 def check_evidence(query: str, chunks: List[Dict[str, Any]]) -> Dict[str, str]:
     """

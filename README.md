@@ -136,6 +136,24 @@ answer = llm.generate(query, chunks)
 
 ---
 
+## Failure Modes Explicitly Modeled
+
+This project treats *not answering* as a first-class system outcome.
+
+| Scenario | Typical RAG Behavior | Stop-First RAG Outcome |
+|--------|----------------------|------------------------|
+| No relevant data exists | Hallucinates an answer | STOP (NoEvidence) |
+| Data is partial or outdated | Fills gaps implicitly | STOP (InsufficientEvidence) |
+| Retriever returns plausible but wrong chunks | Blends into response | STOP (ConflictDetected) |
+| Model confidence is low | Hidden from user | STOP (LowConfidence) |
+| Query is out of system scope | Attempts anyway | STOP (OutOfScope) |
+
+**STOP is not a fallback. It is an explicit, typed system outcome.**
+
+See `gate.py::StopReason` (lines 115-142) for the complete enumeration of stop reasons used in production scenarios.
+
+---
+
 ## Quick Demo (30 seconds)
 
 **Core logic**: `gate.py::should_generate(chunks)` — single `if not chunks` check
@@ -348,6 +366,20 @@ answer = llm.generate(query, chunks)
 - ❌ Your retrieval always returns results (open domain with massive corpus)
 - ❌ You want creative/speculative answers without evidence
 - ❌ You need relevance checking (use reranking instead)
+
+---
+
+## Who This Is For
+
+**Use this pattern if your system fits these requirements:**
+- Systems where incorrect answers are worse than silence
+- Regulated or safety-sensitive domains
+- Teams that need to audit *why* an answer was not given
+
+**This is not for:**
+- Personal assistants
+- Hobby projects
+- Systems optimized purely for answer rate
 
 ---
 

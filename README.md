@@ -4,6 +4,16 @@
 
 ---
 
+## Why Stop First?
+
+This project is motivated by high-risk domains, but not limited to them.
+
+Any system — including local or personal LLM setups — benefits from explicitly knowing when not to answer, instead of confidently answering wrong.
+
+"Don't answer" is treated as a first-class system outcome, not an accident or fallback.
+
+---
+
 ## What This Project Is / Is Not
 
 ### This Project Is
@@ -369,17 +379,18 @@ answer = llm.generate(query, chunks)
 
 ---
 
-## Who This Is For
+## Intended Use Cases
 
-**Use this pattern if your system fits these requirements:**
-- Systems where incorrect answers are worse than silence
+- Local LLM deployments where incorrect answers are worse than silence
+- Systems that must explicitly represent retrieval failure
+- Pipelines that require auditability of non-answers
 - Regulated or safety-sensitive domains
-- Teams that need to audit *why* an answer was not given
 
-**This is not for:**
-- Personal assistants
-- Hobby projects
-- Systems optimized purely for answer rate
+## Non-Goals
+
+- Maximizing answer rate
+- Convenience-first "answer anyway" UX
+- Hiding uncertainty for smoother demos
 
 ---
 

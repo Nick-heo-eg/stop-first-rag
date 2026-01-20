@@ -1,0 +1,7 @@
+{
+  "query_id": "query2",
+  "query": "Who won the 2025 Super Bowl?",
+  "expected_decision": "STOP",
+  "expected_reason": "EVIDENCE_MISSING",
+  "description": "Future event - no evidence exists, should refuse to answer"
+}

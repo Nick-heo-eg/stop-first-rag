@@ -1,0 +1,34 @@
+{
+  "test_suite": "Boundary Specification Core Scenarios",
+  "philosophy": [
+    "Retrieved documents \u2260 permission to answer",
+    "This system does not automate decisions"
+  ],
+  "scenarios": [
+    {
+      "id": 1,
+      "name": "Documents Retrieved + Permission Missing",
+      "expected": "STOP.PERMISSION_MISSING"
+    },
+    {
+      "id": 2,
+      "name": "No Documents + Permission Granted",
+      "expected": "STOP.EVIDENCE_MISSING"
+    },
+    {
+      "id": 3,
+      "name": "Decision Request",
+      "expected": "STOP.DECISION_AUTOMATION_BLOCKED"
+    },
+    {
+      "id": 4,
+      "name": "Adapter Forces ANSWER",
+      "expected": "STOP (philosophy overrides adapter)"
+    },
+    {
+      "id": 5,
+      "name": "Adapter Suggests STOP",
+      "expected": "ALLOW (adapter is advisory)"
+    }
+  ]
+}

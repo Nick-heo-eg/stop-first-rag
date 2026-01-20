@@ -1,0 +1,7 @@
+{
+  "query_id": "query3",
+  "query": "What is quantum computing?",
+  "expected_decision": "ALLOW",
+  "expected_reason": "EVIDENCE_SUFFICIENT",
+  "description": "Relevant evidence exists in knowledge base - safe to generate"
+}

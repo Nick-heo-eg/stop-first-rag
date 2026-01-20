@@ -1,0 +1,15 @@
+evidence_check:
+  require_chunks: true
+  allow_empty_chunks: false
+  minimum_chunks: 1
+  description: "Prevent generation when no evidence chunks are retrieved"
+
+decisions:
+  STOP:
+    - reason: "EVIDENCE_MISSING"
+      condition: "No chunks retrieved"
+    - reason: "EVIDENCE_INSUFFICIENT"
+      condition: "Chunks retrieved but not relevant"
+  ALLOW:
+    - reason: "EVIDENCE_SUFFICIENT"
+      condition: "Minimum chunks threshold met"

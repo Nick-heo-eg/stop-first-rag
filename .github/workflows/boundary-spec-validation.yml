@@ -1,0 +1,91 @@
+name: Boundary Specification Validation
+
+# This workflow validates the 5 core scenarios that define the judgment boundary.
+# These tests MUST pass before any release.
+#
+# Core Philosophy (enforced in every test):
+# - "Retrieved documents ≠ permission to answer"
+# - "This system does not automate decisions"
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-boundary-spec:
+    name: Validate 5 Core Scenarios
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Display philosophy
+      run: |
+        echo "=================================================="
+        echo "BOUNDARY SPECIFICATION VALIDATION"
+        echo "=================================================="
+        echo ""
+        echo "Core Philosophy:"
+        echo '  - "Retrieved documents ≠ permission to answer"'
+        echo '  - "This system does not automate decisions"'
+        echo ""
+        echo "Positioning:"
+        echo '  "This is not a system that answers questions well.'
+        echo '   This is a system that distinguishes when answering is permitted."'
+        echo ""
+
+    - name: Run 5 Core Scenarios
+      id: test
+      run: |
+        python test_boundary_spec.py
+      continue-on-error: false
+
+    - name: Archive test report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: boundary-spec-test-report
+        path: test_report.json
+        retention-days: 90
+
+    - name: Check test results
+      if: failure()
+      run: |
+        echo "❌ BOUNDARY SPECIFICATION VIOLATED"
+        echo ""
+        echo "One or more core scenarios failed."
+        echo "These tests are non-negotiable:"
+        echo ""
+        echo "1. Documents Retrieved + Permission Missing → STOP"
+        echo "2. No Documents + Permission Granted → STOP"
+        echo "3. Decision Request → STOP"
+        echo "4. Adapter Forces ANSWER → STOP (philosophy wins)"
+        echo "5. Adapter Suggests STOP → ALLOW (if conditions met)"
+        echo ""
+        echo "Philosophy must be enforced:"
+        echo '  - "Retrieved documents ≠ permission to answer"'
+        echo '  - "This system does not automate decisions"'
+        echo ""
+        echo "DO NOT MERGE. DO NOT RELEASE."
+        exit 1
+
+    - name: Success message
+      if: success()
+      run: |
+        echo ""
+        echo "✅ ALL 5 CORE SCENARIOS PASSED"
+        echo ""
+        echo "Boundary specification validated:"
+        echo '  ✅ "Retrieved documents ≠ permission to answer"'
+        echo '  ✅ "This system does not automate decisions"'
+        echo ""
+        echo "Philosophy enforced. Boundary contract upheld."
+        echo ""

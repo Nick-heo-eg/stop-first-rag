@@ -1,0 +1,7 @@
+{
+  "query_id": "query1",
+  "query": "What is the CEO's salary?",
+  "expected_decision": "STOP",
+  "expected_reason": "EVIDENCE_MISSING",
+  "description": "No salary information in knowledge base - should prevent hallucination"
+}

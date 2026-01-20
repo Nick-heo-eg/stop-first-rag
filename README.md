@@ -37,9 +37,13 @@ answer = llm.generate(query, chunks)
 
 ---
 
-## Quick Start (30 seconds)
+## Quick Demo (30 seconds)
 
-### Option 1: Run the demo
+**Core logic**: [`gate.py`](gate.py) — `check_evidence()` function (~45 lines)
+**Minimal demo**: `demos/local/hallucination_prevention/demo_cli.sh`
+**Prerequisites**: Python 3 (stdlib only, zero dependencies)
+
+### Run the demo
 
 ```bash
 git clone https://github.com/yourusername/stop-first-rag.git
@@ -48,15 +52,17 @@ cd stop-first-rag/demos/local/hallucination_prevention
 ```
 
 **What you'll see**:
-```
-Query: What is the CEO's salary?
-  Retrieved chunks: 0
-  Decision: STOP
-  🚫 LLM generation: SKIPPED (not called)
-  ✅ Hallucination prevented
-```
+- **Retrieval fails** (0 chunks) → Decision: **STOP** → LLM generation **SKIPPED** → hallucination prevented
+- **Retrieval succeeds** (3 chunks) → Decision: **ALLOW** → LLM generation **ALLOWED** → safe to generate
+- **Result**: 2/3 queries had no evidence → 2 LLM calls skipped → cost saved, no hallucinations
 
-### Option 2: Copy-paste this code
+**Execution time**: < 1 second
+
+---
+
+## Quick Start (30 seconds)
+
+### Copy-paste this code
 
 ```python
 # Add to your existing RAG pipeline
@@ -231,8 +237,8 @@ Results:
 
 ## Implementation Files
 
-- **`gate.py`** - Core evidence checking logic (when to stop vs allow)
-- **`demos/local/hallucination_prevention/`** - Working demo with test queries
+- **`gate.py`** - Core evidence checking logic: `check_evidence()` function (~45 lines, lines 17-61)
+- **`demos/local/hallucination_prevention/`** - Working demo with test queries (< 1 second execution)
 - **`COMPLIANCE.md`** - Enterprise compliance features (audit trails, regulatory use)
 - **`CLI_USAGE.md`** - Command-line interface (for shell scripts)
 
@@ -260,10 +266,11 @@ For organizations requiring audit trails, regulatory compliance (EU AI Act, GDPR
 
 ## Getting Started
 
-1. **See it work**: Run `./demos/local/hallucination_prevention/demo_cli.sh`
-2. **Understand the pattern**: Check evidence → STOP if missing → Only call LLM if verified
-3. **Plug into your RAG**: Add 4 lines (see "How to Plug In" above)
-4. **Check your logs**: Look for `generation_skipped: true` entries
+1. **See it work**: Run `./demos/local/hallucination_prevention/demo_cli.sh` (see "Quick Demo" above)
+2. **Read the core logic**: Check `gate.py` lines 17-61 — the `check_evidence()` function (~45 lines)
+3. **Understand the pattern**: Check evidence → STOP if missing → Only call LLM if verified
+4. **Plug into your RAG**: Add 4 lines (see "Quick Start" above)
+5. **Check your logs**: Look for `generation_skipped: true` entries
 
 ---
 

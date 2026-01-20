@@ -322,3 +322,94 @@ def check_boundary(
             for a in (decision.next_actions or [])
         ]
     }
+
+
+# ============================================================================
+# CLI INTERFACE
+# ============================================================================
+
+if __name__ == "__main__":
+    import sys
+    import json
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Stop-first RAG evidence checker (CLI)",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Check with JSON chunks file
+  python gate.py --query "What is the CEO's salary?" --chunks chunks.json
+
+  # Check with empty chunks (will STOP)
+  python gate.py --query "What is the CEO's salary?" --chunks-empty
+
+  # Pipe chunks via stdin
+  echo '[]' | python gate.py --query "What is the CEO's salary?" --chunks-stdin
+
+  # Quick test
+  python gate.py --query "test query" --chunks-empty
+        """
+    )
+
+    parser.add_argument("--query", required=True, help="Query string")
+
+    chunks_group = parser.add_mutually_exclusive_group(required=True)
+    chunks_group.add_argument("--chunks", help="Path to JSON/JSONL file with chunks")
+    chunks_group.add_argument("--chunks-stdin", action="store_true", help="Read chunks from stdin")
+    chunks_group.add_argument("--chunks-empty", action="store_true", help="Use empty chunks (test STOP)")
+
+    parser.add_argument("--output", choices=["json", "text"], default="text", help="Output format")
+
+    args = parser.parse_args()
+
+    # Load chunks
+    chunks = []
+    if args.chunks_empty:
+        chunks = []
+    elif args.chunks_stdin:
+        try:
+            chunks = json.load(sys.stdin)
+        except json.JSONDecodeError as e:
+            print(f"Error: Invalid JSON from stdin: {e}", file=sys.stderr)
+            sys.exit(1)
+    else:
+        try:
+            with open(args.chunks, 'r') as f:
+                # Try JSONL format first
+                if args.chunks.endswith('.jsonl'):
+                    chunks = []
+                    for line in f:
+                        line = line.strip()
+                        if line:
+                            chunks.append(json.loads(line))
+                else:
+                    # JSON format
+                    chunks = json.load(f)
+        except FileNotFoundError:
+            print(f"Error: File not found: {args.chunks}", file=sys.stderr)
+            sys.exit(1)
+        except json.JSONDecodeError as e:
+            print(f"Error: Invalid JSON in file: {e}", file=sys.stderr)
+            sys.exit(1)
+
+    # Run check
+    decision = check_evidence(args.query, chunks)
+
+    # Output
+    if args.output == "json":
+        print(json.dumps(decision, indent=2))
+    else:
+        # Human-readable text
+        print(f"Query: {args.query}")
+        print(f"Chunks: {len(chunks)}")
+        print(f"Decision: {decision['status']}")
+        print(f"Reason: {decision['reason']}")
+        print(f"Explanation: {decision['explanation']}")
+
+        if decision['status'] == 'STOP':
+            print("\n🚫 LLM generation should be SKIPPED")
+            sys.exit(1)  # Exit code 1 for STOP (useful in scripts)
+        else:
+            print("\n✅ LLM generation can PROCEED")
+            sys.exit(0)

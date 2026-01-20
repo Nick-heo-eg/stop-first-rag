@@ -77,6 +77,23 @@ else:
 
 **File**: `gate.py` (included in this repo)
 
+### Option 3: CLI (command line)
+
+```bash
+# Quick test
+python gate.py --query "What is the CEO's salary?" --chunks-empty
+
+# From file
+python gate.py --query "..." --chunks chunks.json
+
+# From pipe (integrate with your retriever)
+your-retriever query "..." | python gate.py --query "..." --chunks-stdin
+```
+
+Exit code `0` = ALLOW (call LLM), `1` = STOP (skip LLM)
+
+**See [CLI_USAGE.md](CLI_USAGE.md) for full CLI examples**
+
 ---
 
 ## How to Plug Into Your Existing RAG

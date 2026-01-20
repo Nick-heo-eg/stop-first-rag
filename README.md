@@ -10,10 +10,16 @@
 
 A **reference implementation** of a single-responsibility gate that decides whether LLM generation should proceed based on evidence presence.
 
+**Core principle**: This project does not optimize answer quality. It decides whether generation itself should be allowed or prohibited.
+
 - **Single responsibility**: Decide if `retrieved_chunks` is empty before calling LLM
 - **Core logic**: `if not chunks: return None` — intentionally trivial
 - **Value proposition**: Not the condition itself, but naming it, enforcing it as an execution boundary, and making the decision observable through logs and demos
+- **Output philosophy**: Silence is a valid output. This optimizes silence, not answers.
+- **Positioning**: Deterministic gate, lightweight integrity check, hard stop on missing evidence
 - **Also known as**: `early_exit_guard`, `evidence_presence_check`, `generation_gate`
+
+**This is not a new algorithm.** It is an intentionally simple execution boundary definition.
 
 **This is a boundary enforcement example, not a complete library.**
 
@@ -27,6 +33,75 @@ A **reference implementation** of a single-responsibility gate that decides whet
 - ❌ A drop-in solution or framework extension
 
 **Note**: "Gate" here means an early exit guard, not a state machine or circuit breaker pattern.
+
+---
+
+## Generate-Anyway vs Hard Stop
+
+Most RAG systems follow a **Generate-Anyway** philosophy:
+- Retrieved nothing? Generate anyway (hallucinate or hedge)
+- Retrieved irrelevant chunks? Generate anyway (confabulate from context)
+- Low confidence? Generate anyway (add disclaimers in output)
+
+This project follows a **Hard Stop** philosophy:
+- No evidence retrieved → **Immediate stop** → LLM not called
+- Generation prohibited at execution boundary, not softened through prompts
+- Silence is chosen over speculation
+
+**Why choose silence when evidence is missing?**
+
+| Dimension | Generate-Anyway | Hard Stop (This Project) |
+|-----------|----------------|-------------------------|
+| **Security** | Hallucinations may leak training data or fabricate sensitive info | No generation = no hallucination surface |
+| **Cost** | Pay for every LLM call, even when doomed to fail | LLM call skipped = cost saved |
+| **Reliability** | Inconsistent output quality (sometimes good, sometimes hallucinated) | Deterministic: evidence exists → generate; no evidence → stop |
+| **Observability** | Failures hidden in generated text, hard to detect | Explicit STOP decision logged with reason code |
+| **User trust** | Confident-sounding wrong answers erode trust faster | "I don't have that information" preserves integrity |
+
+**This is not a quality optimization.** Choosing silence does not make answers better. It prevents answers from existing when they should not exist.
+
+---
+
+## Why This Is Not Self-RAG / Adaptive-RAG
+
+This project is often compared to Self-RAG, Adaptive-RAG, and CRAG. **These are not competitors.** This is a **precondition** that runs before those systems.
+
+### Responsibility Scope
+
+| System | What It Optimizes | When It Runs |
+|--------|------------------|-------------|
+| **Stop-First (this)** | Decides if generation should happen at all | **Before** RAG generation |
+| **Self-RAG** | Decides when to retrieve during generation | **During** generation (multi-step) |
+| **Adaptive-RAG** | Routes queries to different retrieval strategies | **During** retrieval (query classification) |
+| **CRAG** | Refines and validates retrieved chunks | **During** generation (chunk filtering) |
+
+### Key Difference
+
+- **Self-RAG / Adaptive-RAG / CRAG**: "How do we generate better answers given some evidence?"
+- **Stop-First**: "Should we generate at all, or enforce silence?"
+
+**Example**:
+```python
+# Stop-First runs first (precondition)
+if not should_generate(chunks):
+    return None  # Hard stop, execution ends here
+
+# If we reach this line, chunks exist
+# Now Self-RAG / Adaptive-RAG / CRAG can optimize generation
+answer = self_rag.generate(query, chunks)  # Uses reflection, retrieval
+```
+
+**This does not compete with or replace those systems.** You can use Stop-First as a precondition check, then pass allowed queries to Self-RAG / Adaptive-RAG downstream.
+
+**What Stop-First does NOT do**:
+- Does not decide which retrieval strategy to use (that's Adaptive-RAG's job)
+- Does not validate chunk relevance during generation (that's Self-RAG's job)
+- Does not refine or rerank chunks (that's CRAG's job)
+
+**What Stop-First does**:
+- Enforces `if chunks.length == 0 → STOP` as a non-bypassable execution boundary
+- Logs the decision for observability
+- Prevents LLM call when evidence is absent
 
 ---
 
@@ -192,21 +267,34 @@ chain = RunnableLambda(gate_runnable) | llm_chain
 
 ---
 
-## Why Not Always Use Fallback?
+## Silence Is a Valid Output
 
-Many production systems use fallback responses like "I don't have enough information to answer that question." This seems safe, but can hide a deeper problem.
+Many production systems use fallback responses like "I don't have enough information to answer that question." This seems safe, but it hides the execution decision.
 
-**Issue**: If your retrieval fails silently and always returns a polite fallback, you lose visibility into:
-- How often retrieval is actually failing
-- Which queries are out of scope
-- Whether your knowledge base has coverage gaps
+**The problem with fallback-first**:
+- **Conceals hallucination risk**: Polite fallback masks that LLM was called with empty context
+- **Loses observability**: No structured log of when/why retrieval failed
+- **Prevents diagnosis**: Cannot measure retrieval failure rate or identify coverage gaps
+- **False comfort**: Users see consistent UX, operators miss systemic retrieval problems
 
-**This project's approach**: Make the STOP decision explicit and logged, so you can:
-- Measure retrieval failure rate
-- Identify query patterns that need better documentation
-- Decide per-query whether to show fallback, redirect to human, or improve retrieval
+**This project's approach: Hard stop, then log, then optionally fallback**
 
-**When to use fallback**: After logging the STOP decision, your application layer can choose to show a fallback message. The key is **log first, then fallback** — not fallback-only.
+```python
+# Step 1: Hard stop (execution boundary)
+if not should_generate(chunks):
+    # Step 2: Log decision (observability)
+    logger.info("STOP", reason="EVIDENCE_MISSING", query_id=...)
+
+    # Step 3: Fallback (application layer, optional)
+    return {"answer": None, "message": "No evidence found"}
+```
+
+**Silence (None/null) is the primary output.** Fallback messages are application-layer concerns, not generation decisions.
+
+**Why this matters**:
+- In production, fallback-only systems often generate answers with empty chunks, then hide failures in politeness
+- Logs show "200 OK" even when retrieval failed → hallucination risk invisible
+- Stop-first logs show "STOP" decision → retrieval failure measurable → coverage gaps identifiable
 
 ---
 
@@ -281,4 +369,8 @@ MIT License - See LICENSE file
 
 ---
 
-**Remember**: The value is not in the `if not chunks` condition itself. The value is in naming it, enforcing it as an execution boundary, and making the decision observable through structured logs and demos.
+**Remember**:
+- The value is not in the `if not chunks` condition itself
+- The value is in naming it, enforcing it as an execution boundary, and making the decision observable
+- Silence is a valid output—this optimizes silence, not answers
+- This is not a new algorithm—it is an intentionally simple execution boundary definition

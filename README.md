@@ -1,5 +1,7 @@
 # Stop-First RAG
 
+Generation gating mechanism: decide whether to speak.
+
 **Layer:** Execution / Mechanism
 
 **Reference implementation** of pre-generation gating applied to RAG systems.

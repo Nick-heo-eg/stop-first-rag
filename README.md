@@ -1,5 +1,7 @@
 # Stop-First RAG
 
+**Layer:** Execution / Mechanism
+
 **Reference implementation** of pre-generation gating applied to RAG systems.
 
 > **For benchmark results and empirical validation**, see:

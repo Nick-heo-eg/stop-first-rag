@@ -1,16 +1,22 @@
 # Stop-First RAG
 
-**Early exit guard for RAG pipelines**: Check evidence presence before LLM generation → skip generation when chunks are empty.
+**Reference implementation** of pre-generation gating applied to RAG systems.
+
+> **For benchmark results and empirical validation**, see:
+> → [llm-gating-bench](https://github.com/nick-heo123/llm-gating-bench)
 
 ---
 
-## Why Stop First?
+## What This Repo Is
 
-This project is motivated by high-risk domains, but not limited to them.
+This repository demonstrates **RAG-specific patterns** for deciding whether to call an LLM before generation:
 
-Any system — including local or personal LLM setups — benefits from explicitly knowing when not to answer, instead of confidently answering wrong.
+- Evidence presence checks (`if not chunks: return None`)
+- Document conflict detection (when retrieved chunks disagree)
+- Retrieval score thresholds (BM25 filtering)
+- Typed stop reasons (`no_data`, `conflict`, `low_confidence`)
 
-"Don't answer" is treated as a first-class system outcome, not an accident or fallback.
+**Core principle**: "Don't answer" is a first-class system outcome, not an accident or fallback.
 
 ---
 

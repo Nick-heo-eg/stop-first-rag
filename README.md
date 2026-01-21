@@ -3,7 +3,7 @@
 **Reference implementation** of pre-generation gating applied to RAG systems.
 
 > **For benchmark results and empirical validation**, see:
-> → [llm-gating-bench](https://github.com/nick-heo123/llm-gating-bench)
+> → [llm-gating-bench](https://github.com/Nick-heo-eg/llm-gating-bench)
 
 ---
 

@@ -11,6 +11,14 @@ Generation gating mechanism: decide whether to speak.
 
 ---
 
+## Governance
+
+**Constitutional Conformity**: This project conforms to an internal judgment-boundary constitutional specification (private).
+
+> **Public repos argue. Private repos decide.**
+
+---
+
 ## What This Repo Is
 
 This repository demonstrates **RAG-specific patterns** for deciding whether to call an LLM before generation:

@@ -1,6 +1,137 @@
-# Stop-First RAG
+# Stop-First RAG → Regulated Write Firewall
 
-Generation gating mechanism: decide whether to speak.
+AI가 이메일을 보냈을 때
+누가 승인했는지 증명할 수 없는 시스템은
+기술 문제가 아니라 책임 문제다.
+
+When an AI sends an email,
+a system that cannot prove who approved it
+has a responsibility problem, not a technical one.
+
+---
+
+**Repository Evolution**: This repository originated as a reference implementation for RAG evidence gating. It has evolved to include execution governance for production AI agents.
+
+---
+
+## Quick Navigation
+
+### Core Documents (New)
+
+- **[MISSION.md](MISSION.md)** — Why we exist ("조직 생존 구조")
+- **[INTERNAL_STANDARDS.md](INTERNAL_STANDARDS.md)** — Foundation principles (immutable)
+- **[Product Pitch](docs/REGULATED_WRITE_FIREWALL_PITCH.md)** — Go-to-market positioning
+- **[Technical Implementation](examples/halt_v01_skeleton.py)** — HALT v0.1 skeleton (production-ready)
+
+### Strategic Documents
+
+- **[Positioning Strategy](examples/POSITIONING_STRATEGY.md)** — Market positioning analysis
+- **[Hybrid Interface Spec](examples/HYBRID_INTERFACE_SPEC.md)** — CrewAI ↔ LangGraph integration
+- **[Guard Integration](examples/GUARD_INTEGRATION.md)** — Bash guard + HALT pipeline
+
+---
+
+## What This Repository Contains
+
+### 1. Stop-First RAG (Original)
+
+**Purpose**: Evidence presence gate for RAG pipelines
+
+**Core principle**: "Don't answer" is a first-class system outcome, not an accident or fallback.
+
+**Status**: Reference implementation (see below for original documentation)
+
+---
+
+### 2. HALT Loop (Human-Approved Lifecycle for Tasks)
+
+**Purpose**: Execution governance for AI agents
+
+**Core principle**: AI cannot execute external writes without human approval and cryptographic proof.
+
+**Architecture**:
+```
+planner → risk_extract → det_judge
+            ↓ HOLD         ↓ ALLOW         ↓ STOP
+      human_interrupt   write_barrier    end_stop
+            ↓                 ↓
+      release_gate      tool_executor
+            ↓                 ↓
+      det_judge (re-eval)   END
+```
+
+**Key files**:
+- `examples/halt_v01_skeleton.py` — Production-ready reference
+- `examples/langgraph_halt_loop.py` — Original (deprecated, use v0.1)
+- `examples/guard_integrated_halt.py` — Bash guard integration
+
+---
+
+### 3. Regulated Write Firewall (Core Product)
+
+**Position**: Accountability infrastructure for production AI agents
+
+**Value proposition**:
+> "No write without proof. AI stops before external execution. When released, cryptographic evidence survives."
+
+**Target market**:
+- Fintech (규제 강함, 돈 많음)
+- Healthcare (개인정보보호법, HIPAA)
+- Enterprise GRC (준법감시, 감사 대응)
+
+**Differentiation**:
+| Aspect | LangChain/CrewAI | Regulated Write Firewall |
+|--------|------------------|--------------------------|
+| Purpose | Agent orchestration | **Write governance** |
+| Write control | Agent executes directly | **Firewall blocks** |
+| Enforcement | Prompt-dependent | **Code-level gates** |
+| Audit trail | Conversation logs | **Proof Capsule (불변)** |
+| Accountability | Vague | **Owner-of-Record 명시** |
+
+**Status**: Product positioning locked, PoC ready
+
+---
+
+## Repository Mission
+
+> **우리는 지능을 높이는 회사를 만드는 게 아니다.**
+>
+> **사고가 났을 때 조직이 살아남게 만드는 구조를 만든다.**
+
+See [MISSION.md](MISSION.md) for full context.
+
+---
+
+## From Concept to Structure
+
+**stop-first-rag** (this repository):
+- Problem framing: "AI가 멈춰야 하는 이유"
+- Philosophical foundation
+- "STOP is cheaper than scaling"
+
+**Implementation**:
+- Production runtime: In development (private)
+- Open-source release: TBD
+- Early access: Contact via GitHub issues or repository discussions
+
+**Relationship**: This repository defines the problem and philosophy. The production implementation (HALT loop, Proof Capsule, Write Barrier) is being developed separately as a regulated write firewall system.
+
+---
+
+## For New Contributors
+
+**Read in this order**:
+
+1. **[MISSION.md](MISSION.md)** — Identity (5 min)
+2. **[INTERNAL_STANDARDS.md](INTERNAL_STANDARDS.md)** — Principles (15 min)
+3. **[examples/halt_v01_skeleton.py](examples/halt_v01_skeleton.py)** — Implementation (30 min)
+4. **[Product Pitch](docs/REGULATED_WRITE_FIREWALL_PITCH.md)** — Market context (20 min)
+
+**If you disagree with the mission**, this project may not be the right fit. We optimize for organizational survival, not AI intelligence.
+
+---
+
+# Original: Stop-First RAG Documentation
 
 **Layer:** Execution / Mechanism
 

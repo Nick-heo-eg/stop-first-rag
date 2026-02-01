@@ -10,6 +10,17 @@ has a responsibility problem, not a technical one.
 
 ---
 
+## Position
+
+This repository is part of the **Judgment Boundary** work:
+a set of experiments and specifications focused on
+*when AI systems must stop or not execute*.
+
+See the overarching map:
+→ [JUDGMENT_BOUNDARY_MANIFEST.md](JUDGMENT_BOUNDARY_MANIFEST.md)
+
+---
+
 **Repository Evolution**: This repository originated as a reference implementation for RAG evidence gating. It has evolved to include execution governance for production AI agents.
 
 ---

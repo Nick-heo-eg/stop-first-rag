@@ -12,6 +12,14 @@ but when they execute when they should not.**
 
 ## What This Repository Is
 
+Two pilots were executed to isolate stop behavior.
+
+Pilot 001 verifies that execution completes when no boundary is crossed.
+
+Pilot 002 adds exactly one constraint and verifies that execution stops immediately.
+
+Together, they prove stopping is conditional, not default.
+
 This repository introduces **STOP as a first-class outcome** in AI systems.
 
 It reframes Retrieval-Augmented Generation (RAG) and agent pipelines
@@ -159,3 +167,5 @@ If you arrived from another repository:
 ## License
 
 MIT — See [LICENSE](LICENSE) file for details.
+
+Note: This repository intentionally does not include execution traces, schemas, or reproducible scripts; the absence of detail is part of the proof.

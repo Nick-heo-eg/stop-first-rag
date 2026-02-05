@@ -92,6 +92,26 @@ Navigate from here:
 
 ---
 
+## Tier 2 — Operational Proof
+
+Design and documentation are not sufficient to establish trust.
+Stop-first must be shown to work **during execution**.
+
+The following repository contains sealed operational evidence:
+
+- **stop-first-operational-proof**
+  - Two identical automation pilots
+  - One completed normally
+  - One stopped immediately when a forbidden impulse was detected
+  - Same task, same inputs, exactly one constraint difference
+
+This repository is not a framework or a tool.
+It is a record that **stopping is a controlled outcome, not a failure mode**.
+
+👉 https://github.com/Nick-heo-eg/stop-first-operational-proof
+
+---
+
 ## Who This Is For
 
 * Platform / infrastructure engineers

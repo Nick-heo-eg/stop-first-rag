@@ -1,5 +1,10 @@
 # stop-first-rag
 
+> **This is the entry point to the Judgment Boundary work.**
+> **If you are new, start here.**
+
+---
+
 **AI systems fail not when they are wrong,
 but when they execute when they should not.**
 
@@ -50,27 +55,40 @@ For the full conceptual map, see:
 
 ---
 
-## Repository Map (Entry View)
+## Repository Map
 
-This repository is the **front door** to a larger body of work:
+This repository is the **front door** to a larger body of work.
+Navigate from here:
 
-* **Judgment & Execution Boundary**
-  * llm-execution-boundary
-  * two-stage-judgment-pipeline
+### **Tier 1: Specifications (Conceptual Foundation)**
 
-* **Observability (Non-Execution)**
-  * decision-only-observability
+* **[judgment-topology](https://github.com/Nick-heo-eg/judgment-topology)** — Minimal judgment topology (states, transitions, constraints)
+* **[execution-governance-spec](https://github.com/Nick-heo-eg/execution-governance-spec)** — Execution governance framework
+* **[ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec)** — Pre-incident execution boundaries
+* **[agent-judgment-spec](https://github.com/Nick-heo-eg/agent-judgment-spec)** — Judgment authority transfer in autonomous agents
+* **[spec](https://github.com/Nick-heo-eg/spec)** — Structured log schema for AI decision accountability
 
-* **Benchmarks (Execution Cost)**
-  * llm-gating-bench
-  * math-solver-benchmark
+### **Tier 2: Proofs & Demonstrations**
 
-* **Governance & Specification**
-  * agent-judgment-spec
-  * execution-governance-spec
+* **[judgment-topology-poc](https://github.com/Nick-heo-eg/judgment-topology-poc)** ⭐ — Claude legal plugin judgment layer (NDA triage)
+* **[mail-sentinel](https://github.com/Nick-heo-eg/mail-sentinel)** — Email mistake checkpoint (no install, browser-based)
+* **[genai-judgment-boundary](https://github.com/Nick-heo-eg/genai-judgment-boundary)** — GenAI judgment boundary implementation
+* **[decision-infrastructure](https://github.com/Nick-heo-eg/decision-infrastructure)** — Decision preparation infrastructure
 
-→ See the **full map and rationale** in
-**[JUDGMENT_BOUNDARY_MANIFEST.md](JUDGMENT_BOUNDARY_MANIFEST.md)**
+### **Tier 3: Benchmarks & Measurement**
+
+* **[llm-gating-bench](https://github.com/Nick-heo-eg/llm-gating-bench)** — Pre-generation gating benchmark (5.17× speedup)
+* **[stop-strategy-comparison](https://github.com/Nick-heo-eg/stop-strategy-comparison)** — 25-task explicit stop mechanism study
+* **[decision-only-observability](https://github.com/Nick-heo-eg/decision-only-observability)** — Observing non-executed operations
+
+### **Tier 4: Language/Domain-Specific**
+
+* **[k-judgment-gate](https://github.com/Nick-heo-eg/k-judgment-gate)** — Korean LLM governance-first judgment detection
+* **[judgment-refinement-public](https://github.com/Nick-heo-eg/judgment-refinement-public)** — Korean judgment detection (50% FP reduction)
+
+---
+
+**Start with Tier 1 (specs) for concepts, Tier 2 (proofs) for evidence.**
 
 ---
 

@@ -1,5 +1,7 @@
 # stop-first-rag
 
+This repository serves as a canonical entry point aggregating specifications, proofs, and benchmarks related to judgment boundaries and stop-first execution.
+
 > **This is the entry point to the Judgment Boundary work.**
 > **If you are new, start here.**
 

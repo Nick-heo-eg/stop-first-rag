@@ -31,6 +31,12 @@ Correctness is secondary.
 
 ---
 
+## Non-Goals
+
+This project does not aim to replace human or organizational judgment authority; does not provide sealed or proprietary judgment layers; does not claim legal, court-level, or regulatory admissibility; does not own, trademark, or enforce 'judgment language'. This project focuses on pre-execution judgment boundaries, STOP/HOLD/ALLOW as first-class outcomes, fail-closed behavior for unknown cases, negative proof logging, and observability-friendly reference patterns.
+
+---
+
 ## The Problem
 
 Most AI systems share the same structural flaws:

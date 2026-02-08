@@ -1,9 +1,13 @@
 # stop-first-rag
 
-This repository serves as a canonical entry point aggregating specifications, proofs, and benchmarks related to judgment boundaries and stop-first execution.
+> **Position**
+>
+> This repository applies the *Stop-First* pattern to RAG systems.
+>
+> The canonical entry point for execution boundary specifications and proofs is:
+> → https://github.com/Nick-heo-eg/execution-boundary
 
-> **This is the entry point to the Judgment Boundary work.**
-> **If you are new, start here.**
+This repository aggregates specifications, proofs, and benchmarks related to judgment boundaries and stop-first execution in the context of RAG.
 
 ---
 
@@ -14,7 +18,7 @@ but when they execute when they should not.**
 
 ## What This Is
 Stop-First demonstrates how execution can be structurally blocked until an explicit judgment state exists.
-This repository is an entry point and conceptual guide.
+This repository provides conceptual guidance and aggregates related work.
 
 ## What This Is Not
 This project does not replace human judgment, enforce policy, or claim legal authority.
@@ -54,9 +58,7 @@ For the full conceptual map, see:
 
 ## Repository Map
 
-This repository is the front door
-to a larger body of work.
-Navigate from here.
+This repository aggregates related work across multiple areas.
 
 ### Tier 1 — Specifications (Conceptual Foundation)
 

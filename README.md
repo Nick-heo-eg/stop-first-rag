@@ -12,28 +12,12 @@ but when they execute when they should not.**
 
 ---
 
-## What This Repository Is
+## What This Is
+Stop-First demonstrates how execution can be structurally blocked until an explicit judgment state exists.
+This repository is an entry point and conceptual guide.
 
-This repository introduces **STOP** as a first-class outcome
-in AI systems.
-
-It reframes Retrieval-Augmented Generation (RAG)
-and agent pipelines around a single question:
-
-> **"Should the system execute at all?"**
-
-The goal is not to improve answers,
-but to prevent costly execution
-when judgment is uncertain or inappropriate.
-
-Execution control is primary.
-Correctness is secondary.
-
----
-
-## Non-Goals
-
-This project does not aim to replace human or organizational judgment authority; does not provide sealed or proprietary judgment layers; does not claim legal, court-level, or regulatory admissibility; does not own, trademark, or enforce 'judgment language'. This project focuses on pre-execution judgment boundaries, STOP/HOLD/ALLOW as first-class outcomes, fail-closed behavior for unknown cases, negative proof logging, and observability-friendly reference patterns.
+## What This Is Not
+This project does not replace human judgment, enforce policy, or claim legal authority.
 
 ---
 

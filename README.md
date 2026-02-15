@@ -1,66 +1,56 @@
 # stop-first-rag
 
-> **Position**
->
-> This repository applies the *Stop-First* pattern to RAG systems.
->
-> The canonical entry point for execution boundary specifications and proofs is:
-> → https://github.com/Nick-heo-eg/execution-boundary
+## Historical Context
 
-This repository aggregates specifications, proofs, and benchmarks related to judgment boundaries and stop-first execution in the context of RAG.
+**This repository was the strategic hub for judgment boundary work (2024-2025).**
 
----
+It has since been repositioned as a **public conceptual anchor** and **archival entry point**.
 
-**AI systems fail not when they are wrong,
-but when they execute when they should not.**
+Active development has moved to dedicated implementation repositories. This repository remains as a permanent reference for the conceptual foundation and links to publicly accessible specifications, proofs, and benchmarks.
 
 ---
 
-## What This Is
-Stop-First demonstrates how execution can be structurally blocked until an explicit judgment state exists.
-This repository provides conceptual guidance and aggregates related work.
+## The Problem | The Boundary | The Evidence
 
-## What This Is Not
-This project does not replace human judgment, enforce policy, or claim legal authority.
+**AI systems fail not when they are wrong, but when they execute when they should not.**
 
----
+**The Problem:** Execution is the default. Judgment is implicit. Non-execution is invisible.
 
-## The Problem
+**The Boundary:** Separate judgment (STOP/HOLD/ALLOW) from execution. Make non-execution observable, auditable, attributable.
 
-Most AI systems share the same structural flaws:
+**The Evidence:** Public specifications (conceptual foundation), public proofs (working demonstrations), public benchmarks (measured outcomes).
 
-* **Execution is the default** — generation implies action
-* **Judgment is implicit** — buried inside model behavior
-* **Non-execution is invisible** — you cannot prove that nothing happened
-
-As a result, responsibility is blurred and failure costs explode.
+→ **See JUDGMENT_BOUNDARY_MANIFEST.md for the full conceptual map.**
 
 ---
 
-## The Judgment Boundary
+## What This Repository Is
 
-This work separates *judgment* from *execution*.
+**No runnable system lives here.**
+**No execution artifacts are stored here.**
 
-Instead of optimizing for answers, systems explicitly decide between:
+This is a **conceptual anchor** and **public archive** linking to:
+- Specifications (how judgment boundaries work)
+- Proofs (that they can be implemented)
+- Benchmarks (measuring their effectiveness)
 
-* **STOP** — do not execute
-* **HOLD** — defer to a human or another authority
-* **ALLOW** — execution is permitted
-
-This boundary makes non-execution observable,
-auditable, and attributable.
-
-For the full conceptual map, see:
-
-→ **JUDGMENT_BOUNDARY_MANIFEST.md**
+This repository is documentation-only. It aggregates references. It does not execute code.
 
 ---
 
-## Repository Map
+## Active Development
 
-This repository aggregates related work across multiple areas.
+Current active work has moved to:
 
-### Tier 1 — Specifications (Conceptual Foundation)
+→ **[execution-authority-runtime-v1](https://github.com/Nick-heo-eg/execution-authority-runtime-v1)** — Execution governance runtime with mandatory mediation
+
+All operational proofs, sealed artifacts, and private development infrastructure are maintained separately and are **not linked from this repository**.
+
+---
+
+## Public Repository Map
+
+### Specifications (Conceptual Foundation)
 
 * **[judgment-topology](https://github.com/Nick-heo-eg/judgment-topology)** — Minimal judgment topology (states, transitions, constraints)
 * **[execution-governance-spec](https://github.com/Nick-heo-eg/execution-governance-spec)** — Execution governance framework
@@ -68,50 +58,45 @@ This repository aggregates related work across multiple areas.
 * **[agent-judgment-spec](https://github.com/Nick-heo-eg/agent-judgment-spec)** — Judgment authority transfer in autonomous agents
 * **[spec](https://github.com/Nick-heo-eg/spec)** — Structured log schema for AI decision accountability
 
-### Tier 2 — Proofs & Demonstrations
+### Proofs & Demonstrations
 
 * **[judgment-topology-poc](https://github.com/Nick-heo-eg/judgment-topology-poc)** ⭐ — Claude legal plugin judgment layer (NDA triage)
-* **[mail-sentinel](https://github.com/Nick-heo-eg/mail-sentinel)** — Email mistake checkpoint (no install, browser-based)
+* **[mail-sentinel](https://github.com/Nick-heo-eg/mail-sentinel)** — Email mistake checkpoint (browser-based, no install)
 * **[genai-judgment-boundary](https://github.com/Nick-heo-eg/genai-judgment-boundary)** — GenAI judgment boundary implementation
 * **[decision-infrastructure](https://github.com/Nick-heo-eg/decision-infrastructure)** — Decision preparation infrastructure
 
-### Tier 3 — Benchmarks & Measurement
+### Benchmarks & Measurement
 
 * **[llm-gating-bench](https://github.com/Nick-heo-eg/llm-gating-bench)** — Pre-generation gating benchmark (5.17× speedup)
 * **[stop-strategy-comparison](https://github.com/Nick-heo-eg/stop-strategy-comparison)** — 25-task explicit stop mechanism study
 * **[decision-only-observability](https://github.com/Nick-heo-eg/decision-only-observability)** — Observing non-executed operations
 
-### Tier 4 — Language / Domain-Specific
+### Language-Specific (Korean)
 
 * **[k-judgment-gate](https://github.com/Nick-heo-eg/k-judgment-gate)** — Korean LLM governance-first judgment detection
 * **[judgment-refinement-public](https://github.com/Nick-heo-eg/judgment-refinement-public)** — Korean judgment detection (50% FP reduction)
 
-Start with **Tier 1 (specs)** for concepts,
-**Tier 2 (proofs)** for evidence.
+**Start with Specifications for concepts, Proofs for evidence, Benchmarks for measurement.**
 
 ---
 
-## Operational Proof (Related)
+## Sealed Operational Artifacts (Not Public)
 
-Early validation of STOP as an executable outcome
-was conducted via two minimal automation pilots.
+The following materials exist but are not publicly accessible:
 
-* **Pilot 001** verifies that execution completes
-  when no boundary is crossed.
-* **Pilot 002** adds exactly one constraint
-  and verifies that execution stops immediately.
+* **Operational proofs** — Sealed operational artifacts (not public)
+* **Private development infrastructure** — Sealed operational artifacts (not public)
+* **Execution traces and schemas** — Sealed operational artifacts (not public)
+* **Internal pilot results** — Sealed operational artifacts (not public)
 
-Together, they prove that stopping is **conditional**,
-not a failure mode.
+**Operational Proof (Reference Only):**
 
-These pilots are now maintained as a separate,
-sealed operational record:
+Early validation of STOP as an executable outcome was conducted via two minimal automation pilots (Pilot 001, Pilot 002). These pilots demonstrated that stopping is conditional, not a failure mode.
 
-→ **stop-first-operational-proof**
-[https://github.com/Nick-heo-eg/stop-first-operational-proof](https://github.com/Nick-heo-eg/stop-first-operational-proof)
+These pilots are maintained as a separate sealed operational record:
+→ **stop-first-operational-proof** (access restricted)
 
-This proof demonstrates **how** stopping works,
-not **when** stopping should occur.
+This proof demonstrates **how** stopping works, not **when** stopping should occur.
 
 ---
 
@@ -136,28 +121,22 @@ not **when** stopping should occur.
 * ❌ Content moderation
 * ❌ "AI safety" by blocking outputs
 
-This work exists to preserve **human responsibility**
-by making it provable when AI systems **did not decide**.
+This work exists to preserve **human responsibility** by making it provable when AI systems **did not decide**.
 
 ---
 
 ## Status
 
-* Public reference point
-* Documentation-first
-* No code execution required to understand the system
-
-> Note: This repository intentionally does not include
-> execution traces, schemas, or reproducible scripts.
-> The absence of detail is part of the proof.
+* **Public conceptual anchor**
+* **Documentation-only repository**
+* **No code execution required to understand the system**
+* **All private links removed** (2026-02-15)
 
 ---
 
 ## About
 
-**Judgment-first RAG**:
-Optimize the cost of being wrong,
-not answer rate.
+**Judgment-first RAG**: Optimize the cost of being wrong, not answer rate.
 
 **STOP is a first-class outcome.**
 

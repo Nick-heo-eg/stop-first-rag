@@ -40,9 +40,7 @@ This repository is documentation-only. It aggregates references. It does not exe
 
 ## Active Development
 
-Current active work has moved to:
-
-→ **[execution-authority-runtime-v1](https://github.com/Nick-heo-eg/execution-authority-runtime-v1)** — Execution governance runtime with mandatory mediation
+Active development has moved to private implementation repositories.
 
 All operational proofs, sealed artifacts, and private development infrastructure are maintained separately and are **not linked from this repository**.
 
@@ -50,33 +48,23 @@ All operational proofs, sealed artifacts, and private development infrastructure
 
 ## Public Repository Map
 
-### Specifications (Conceptual Foundation)
+### Publicly Accessible Specifications
 
-* **[judgment-topology](https://github.com/Nick-heo-eg/judgment-topology)** — Minimal judgment topology (states, transitions, constraints)
-* **[execution-governance-spec](https://github.com/Nick-heo-eg/execution-governance-spec)** — Execution governance framework
 * **[ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec)** — Pre-incident execution boundaries
 * **[agent-judgment-spec](https://github.com/Nick-heo-eg/agent-judgment-spec)** — Judgment authority transfer in autonomous agents
 * **[spec](https://github.com/Nick-heo-eg/spec)** — Structured log schema for AI decision accountability
 
-### Proofs & Demonstrations
+### Publicly Accessible Research
 
-* **[judgment-topology-poc](https://github.com/Nick-heo-eg/judgment-topology-poc)** ⭐ — Claude legal plugin judgment layer (NDA triage)
-* **[mail-sentinel](https://github.com/Nick-heo-eg/mail-sentinel)** — Email mistake checkpoint (browser-based, no install)
-* **[genai-judgment-boundary](https://github.com/Nick-heo-eg/genai-judgment-boundary)** — GenAI judgment boundary implementation
-* **[decision-infrastructure](https://github.com/Nick-heo-eg/decision-infrastructure)** — Decision preparation infrastructure
-
-### Benchmarks & Measurement
-
-* **[llm-gating-bench](https://github.com/Nick-heo-eg/llm-gating-bench)** — Pre-generation gating benchmark (5.17× speedup)
-* **[stop-strategy-comparison](https://github.com/Nick-heo-eg/stop-strategy-comparison)** — 25-task explicit stop mechanism study
 * **[decision-only-observability](https://github.com/Nick-heo-eg/decision-only-observability)** — Observing non-executed operations
 
-### Language-Specific (Korean)
+### Private Repositories (Access Restricted)
 
-* **[k-judgment-gate](https://github.com/Nick-heo-eg/k-judgment-gate)** — Korean LLM governance-first judgment detection
-* **[judgment-refinement-public](https://github.com/Nick-heo-eg/judgment-refinement-public)** — Korean judgment detection (50% FP reduction)
-
-**Start with Specifications for concepts, Proofs for evidence, Benchmarks for measurement.**
+The following categories contain sealed operational artifacts:
+- **Execution topology specifications** — Sealed operational artifacts (not public)
+- **Proof-of-concept implementations** — Sealed operational artifacts (not public)
+- **Benchmark results and datasets** — Sealed operational artifacts (not public)
+- **Language-specific variants** — Sealed operational artifacts (not public)
 
 ---
 

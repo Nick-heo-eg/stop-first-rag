@@ -1,132 +1,115 @@
-# stop-first-rag
+# Stop-First RAG
 
-## Historical Context
+Judgment-first RAG implementation with minimal dependencies.
 
-**This repository was the strategic hub for judgment boundary work (2024-2025).**
-
-It has since been repositioned as a **public conceptual anchor** and **archival entry point**.
-
-Active development has moved to dedicated implementation repositories. This repository remains as a permanent reference for the conceptual foundation and links to publicly accessible specifications, proofs, and benchmarks.
+**STOP is a first-class outcome** — not a failure mode, but an intentional decision when evidence is insufficient.
 
 ---
 
-## The Problem | The Boundary | The Evidence
+## Quickstart
 
-**AI systems fail not when they are wrong, but when they execute when they should not.**
+```bash
+git clone https://github.com/Nick-heo-eg/stop-first-rag.git
+cd stop-first-rag
+python3 demo_minimal.py
+```
 
-**The Problem:** Execution is the default. Judgment is implicit. Non-execution is invisible.
+Outputs STOP / ACCEPT / DEFER decisions with judgment reasoning.
 
-**The Boundary:** Separate judgment (STOP/HOLD/ALLOW) from execution. Make non-execution observable, auditable, attributable.
-
-**The Evidence:** Public specifications (conceptual foundation), public proofs (working demonstrations), public benchmarks (measured outcomes).
-
-→ **See JUDGMENT_BOUNDARY_MANIFEST.md for the full conceptual map.**
-
----
-
-## What This Repository Is
-
-**No runnable system lives here.**
-**No execution artifacts are stored here.**
-
-This is a **conceptual anchor** and **public archive** linking to:
-- Specifications (how judgment boundaries work)
-- Proofs (that they can be implemented)
-- Benchmarks (measuring their effectiveness)
-
-This repository is documentation-only. It aggregates references. It does not execute code.
+**No external dependencies required** — runs on Python stdlib.
 
 ---
 
-## Active Development
+## What This Does
 
-Active development has moved to private implementation repositories.
+Traditional RAG systems retrieve evidence and generate answers by default.
 
-All operational proofs, sealed artifacts, and private development infrastructure are maintained separately and are **not linked from this repository**.
+Stop-First RAG adds a **judgment layer** that evaluates evidence quality before allowing answer generation:
+
+1. **Retrieve** evidence candidates
+2. **Judge** each piece of evidence (ACCEPT / REJECT / DEFER)
+3. **Stop** if no acceptable evidence exists
+4. **Answer** only when evidence meets quality thresholds
 
 ---
 
-## Public Repository Map
+## Example Output
 
-### Publicly Accessible Specifications
+```
+Query: What is our return policy for opened software?
+
+Retrieved 3 evidence candidates
+
+[E1] Decision: REJECT
+     Reason: Evidence covers physical products, not software
+
+[E2] Decision: DEFER
+     Reason: Evidence mentions topic but provides no concrete answer
+
+[E3] Decision: REJECT
+     Reason: Confidence 0.43 below threshold 0.5
+
+Final Decision: STOP
+No acceptable evidence found. Cannot generate answer.
+```
+
+---
+
+## Key Files
+
+- `demo_minimal.py` — Self-contained demonstration (no dependencies)
+- `demo.py` — Extended demo with mock retrieval
+- `gate.py` — Core judgment logic implementation
+- `eval/` — Evaluation scripts
+- `demos/` — Additional examples
+
+---
+
+## Design Principles
+
+- **Judgment before generation**: Decide if answer should exist before generating it
+- **Explicit non-execution**: STOP is logged and auditable, not silent
+- **Evidence-level decisions**: Each piece of evidence is judged independently
+- **Observable outcomes**: All decisions include structured reasoning
+
+---
+
+## Repository Map
+
+This repository contains working code for stop-first judgment logic.
+
+Related specifications and concepts:
 
 * **[ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec)** — Pre-incident execution boundaries
 * **[agent-judgment-spec](https://github.com/Nick-heo-eg/agent-judgment-spec)** — Judgment authority transfer in autonomous agents
 * **[ai-judgment-trail-spec](https://github.com/Nick-heo-eg/ai-judgment-trail-spec)** — Structured log schema for AI decision accountability
-
-### Publicly Accessible Research
-
 * **[decision-only-observability](https://github.com/Nick-heo-eg/decision-only-observability)** — Observing non-executed operations
-
-### Private Repositories (Access Restricted)
-
-The following categories contain sealed operational artifacts:
-- **Execution topology specifications** — Sealed operational artifacts (not public)
-- **Proof-of-concept implementations** — Sealed operational artifacts (not public)
-- **Benchmark results and datasets** — Sealed operational artifacts (not public)
-- **Language-specific variants** — Sealed operational artifacts (not public)
-
----
-
-## Sealed Operational Artifacts (Not Public)
-
-The following materials exist but are not publicly accessible:
-
-* **Operational proofs** — Sealed operational artifacts (not public)
-* **Private development infrastructure** — Sealed operational artifacts (not public)
-* **Execution traces and schemas** — Sealed operational artifacts (not public)
-* **Internal pilot results** — Sealed operational artifacts (not public)
-
-**Operational Proof (Reference Only):**
-
-Early validation of STOP as an executable outcome was conducted via two minimal automation pilots (Pilot 001, Pilot 002). These pilots demonstrated that stopping is conditional, not a failure mode.
-
-These pilots are maintained as a separate sealed operational record:
-→ **stop-first-operational-proof** (access restricted)
-
-This proof demonstrates **how** stopping works, not **when** stopping should occur.
 
 ---
 
 ## Who This Is For
 
+* RAG system developers
 * Platform / infrastructure engineers
-* AI governance, audit, and compliance teams
-* Agent and orchestration framework designers
-
-### Not Intended For
-
-* Prompt engineering
-* End-user AI tooling
-* Content filtering use cases
+* AI governance and audit teams
+* Agent framework designers
 
 ---
 
 ## What This Is Not
 
-* ❌ A filter
+* ❌ A content filter
 * ❌ Alignment or RLHF
-* ❌ Content moderation
-* ❌ "AI safety" by blocking outputs
+* ❌ Prompt engineering
+* ❌ Output moderation
 
-This work exists to preserve **human responsibility** by making it provable when AI systems **did not decide**.
-
----
-
-## Status
-
-* **Public conceptual anchor**
-* **Documentation-only repository**
-* **No code execution required to understand the system**
-* **All private links removed** (2026-02-15)
+This work preserves **human responsibility** by making it provable when the system chose not to answer.
 
 ---
 
-## About
+## Historical Context
 
-**Judgment-first RAG**: Optimize the cost of being wrong, not answer rate.
-
-**STOP is a first-class outcome.**
+This repository was the strategic hub for judgment boundary work (2024-2025). It remains as a working reference implementation demonstrating stop-first logic in RAG systems.
 
 ---
 

@@ -52,7 +52,7 @@ All operational proofs, sealed artifacts, and private development infrastructure
 
 * **[ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec)** — Pre-incident execution boundaries
 * **[agent-judgment-spec](https://github.com/Nick-heo-eg/agent-judgment-spec)** — Judgment authority transfer in autonomous agents
-* **[spec](https://github.com/Nick-heo-eg/spec)** — Structured log schema for AI decision accountability
+* **[ai-judgment-trail-spec](https://github.com/Nick-heo-eg/ai-judgment-trail-spec)** — Structured log schema for AI decision accountability
 
 ### Publicly Accessible Research
 
